@@ -1,0 +1,3 @@
+Othello Project
+
+David Fager
