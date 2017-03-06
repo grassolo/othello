@@ -21,7 +21,7 @@ public:
     Side slf;
     Side opp;
     Side turn;
-    int depth;
+    int treedepth;
 };
 
 #endif

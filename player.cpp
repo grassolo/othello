@@ -7,6 +7,7 @@
 * within 30 seconds.
 */
 Player::Player(Side side) {
+    treedepth = 0;
     // Will be set to true in test_minimax.cpp.
     testingMinimax = false;
     board = new Board();
@@ -15,7 +16,6 @@ Player::Player(Side side) {
     if (slf == WHITE) opp = BLACK;
     else if (slf == BLACK) opp = WHITE;
     turn = slf;
-    //depth = 0;
 }
 
 
@@ -51,6 +51,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     int score_slf = board->count(slf);
     int score_opp = board->count(opp);
     Board *copy = board->copy();
+    // std::cerr << treedepth << std::endl;
     // std::vector<Move> valid_moves;
     int score [8][8] = {{100,-2, 1, 1, 1, 1,-2, 100},
                          {-2,-7, 0, 0, 0, 0,-7,-2 },
