@@ -10,9 +10,12 @@ Player::Player(Side side) {
     // Will be set to true in test_minimax.cpp.
     testingMinimax = false;
     board = new Board();
+    testboard = new Board();
     slf = side;
     if (slf == WHITE) opp = BLACK;
     else if (slf == BLACK) opp = WHITE;
+    turn = slf;
+    //depth = 0;
 }
 
 
@@ -21,6 +24,7 @@ Player::Player(Side side) {
 */
 Player::~Player() {
     delete board;
+    delete testboard;
 }
 
 
@@ -48,14 +52,14 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     int score_opp = board->count(opp);
     Board *copy = board->copy();
     // std::vector<Move> valid_moves;
-    int score [8][8] = {{100,-2, 0, 0, 0, 0,-2, 100},
+    int score [8][8] = {{100,-2, 1, 1, 1, 1,-2, 100},
                          {-2,-7, 0, 0, 0, 0,-7,-2 },
-                         { 0, 0, 0, 0, 0, 0, 0, 0 },
-                         { 0, 0, 0, 0, 0, 0, 0, 0 },
-                         { 0, 0, 0, 0, 0, 0, 0, 0 },
-                         { 0, 0, 0, 0, 0, 0, 0, 0 },
+                         { 1, 0, 0, 0, 0, 0, 0, 1 },
+                         { 1, 0, 0, 0, 0, 0, 0, 1 },
+                         { 1, 0, 0, 0, 0, 0, 0, 1 },
+                         { 1, 0, 0, 0, 0, 0, 0, 1 },
                          {-2,-7, 0, 0, 0, 0,-7,-2 },
-                        {100,-2, 0, 0, 0, 0,-2, 100}};
+                        {100,-2, 1, 1, 1, 1,-2, 100}};
     int new_score_slf, new_score_opp, num_moves = 0;
     int max_score = -256, min_score = 256;
     Move best_move(-1, -1);
