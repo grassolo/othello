@@ -54,12 +54,21 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
     int score_opp = board->count(opp);
     Board *copy = board->copy();
     std::vector<Move> valid_moves;
-    int score [8][8] = { };
-    int new_score_slf, new_score_opp, max_score = 0;
-    Move best_move(0, 0);
+    int score [8][8] = {{100, 0, 0, 0, 0, 0, 0, 100},
+		                {  0,-3, 0, 0, 0, 0,-3, 0  },
+		                {  0, 0, 0, 0, 0, 0, 0, 0  },
+		                {  0, 0, 0, 0, 0, 0, 0, 0  },
+		                {  0, 0, 0, 0, 0, 0, 0, 0  },
+		                {  0, 0, 0, 0, 0, 0, 0, 0  },
+		                {  0,-3, 0, 0, 0, 0,-3, 0  },
+		                {100, 0, 0, 0, 0, 0, 0, 100}};
+    int new_score_slf, new_score_opp = 0;
+    int max_score = -5;
+    Move best_move(-1, -1);
     std::cerr << "Current self score: " << score_slf << std::endl;
     std::cerr << "Current oppn score: " << score_opp << std::endl;
     std::cerr << "Checking available moves..." << std::endl;
+    
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             Move move(i, j);
@@ -72,7 +81,7 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                 new_score_opp = copy->count(opp) - score_opp;
                 std::cerr << "Self token gain: " << new_score_slf << std::endl;
                 std::cerr << "Oppn token gain: " << new_score_opp << std::endl;
-                score[i][j] = new_score_slf - new_score_opp;
+                score[i][j] += new_score_slf - new_score_opp;
                 std::cerr << "Move score: " << score[i][j] <<  std::endl;
                 if (score[i][j] > max_score) {
                     max_score = score[i][j];
@@ -81,12 +90,25 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
             }
         }
     }
+    
     std::cerr << "Best possible score: " << max_score << std::endl;
     int num_moves = valid_moves.size();
     if (num_moves > 0) {
-        int random_index = rand() % num_moves;
-        Move* mymove = &(valid_moves[random_index]);
+        //int random_index = rand() % num_moves;
+        //Move *mymove = &(valid_moves[random_index]);
+        /*
+        Move *mymove = &best_move;
         board->doMove(mymove, slf);
+        std::cerr << mymove << std::endl;
+        std::cerr << mymove->getX() << std::endl;
+        std::cerr << mymove->getY() << std::endl;
+        std::cerr << "New self score: " << board->count(slf) << std::endl;
+        std::cerr << "New oppn score: " << board->count(opp) << std::endl;
+        return mymove;
+        */
+        Move *mymove = new Move(best_move.getX(), best_move.getY());
+        board->doMove(mymove, slf);
+        std::cerr << mymove << std::endl;
         std::cerr << mymove->getX() << std::endl;
         std::cerr << mymove->getY() << std::endl;
         std::cerr << "New self score: " << board->count(slf) << std::endl;
