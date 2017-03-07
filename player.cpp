@@ -57,6 +57,13 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                          { 1, 0, 0, 0, 0, 0, 0, 1 },
                          {-2,-7, 0, 0, 0, 0,-7,-2 },
                         {100,-2, 1, 1, 1, 1,-2, 100}};
+    if (testingMinimax) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                score[i][j] = 0;
+            }
+        }
+    }
     int new_score_slf, new_score_opp, num_moves = 0;
     int max_score = -256;
     Move best_move(-1, -1);
@@ -119,6 +126,13 @@ void Player::tryMove(int depth) {
                          { 1, 0, 0, 0, 0, 0, 0, 1 },
                          {-2,-7, 0, 0, 0, 0,-7,-2 },
                         {100,-2, 1, 1, 1, 1,-2, 100}};
+    if (testingMinimax) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                score[i][j] = 0;
+            }
+        }
+    }
     int new_score_slf, new_score_opp, num_moves = 0;
     int max_score = -256, min_score = 256;
     Move best_move(-1, -1);

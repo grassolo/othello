@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "common.hpp"
 #include "board.hpp"
-#define MAX_DEPTH 3
+#define MAX_DEPTH 4
 
 using namespace std;
 
