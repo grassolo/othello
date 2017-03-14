@@ -41,6 +41,8 @@ Player::~Player() {
 * return nullptr.
 */
 Move *Player::doMove(Move *opponentsMove, int msLeft) {
+    time_t start_timer, current_timer;
+    time(&start_timer);
     // The opponent's move is added to the game board.
     if (opponentsMove != nullptr) {
         board->doMove(opponentsMove, opp);
@@ -94,6 +96,10 @@ Move *Player::doMove(Move *opponentsMove, int msLeft) {
                     best_move = move;
                 }
                 turn = slf;
+            }
+            time(&current_timer);
+            if (msLeft > 0) {
+                if (difftime(start_timer, current_timer) > msLeft/2000) break;
             }
         }
     }

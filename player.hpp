@@ -2,9 +2,10 @@
 #define __PLAYER_H__
 #include <iostream>
 #include <stdlib.h>
+#include <time.h>
 #include "common.hpp"
 #include "board.hpp"
-#define MAX_DEPTH 4
+#define MAX_DEPTH 6
 
 using namespace std;
 
